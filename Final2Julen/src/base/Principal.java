@@ -1,8 +1,18 @@
 package base;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * 
+ * @author Asier Iza
+ *
+ */
 public class Principal {
 	private static final Logger LOGGER = Logger.getLogger(Principal.class.getName());
 
@@ -17,14 +27,35 @@ public class Principal {
 		System.out.println(
 				"Este programa lee el nivel de agua de una presa y permite abrir compuertas si tenemos permiso y el nivel es superior a 50.");
 
+		Handler fileHandler  = null;
+		try{
+			
+            fileHandler  = new FileHandler("logs/opcionesMenu.log", true);
+            
+            fileHandler.setFormatter(new LogFormato());
+
+            LOGGER.addHandler(fileHandler);
+            
+            
+            fileHandler.setLevel(Level.FINE);
+
+            
+            LOGGER.setLevel(Level.FINE);
+             
+            LOGGER.config("Configuración hecha.");
+            
+            
 		int nivel = leerNivelAgua();
 
 		int opcion = 0;
+		
+	
 		do {
 			
 			opcion = mostrarMenu(nivel);
 			
 			switch (opcion) {
+			
 			case 1:
 				nivel = leerNivelAgua();
 				permiso = false;
@@ -56,14 +87,16 @@ public class Principal {
 				break;
 			}
 		} while (opcion != 5);
-
+		}catch(IOException exception){
+	        LOGGER.log(Level.SEVERE, "Ocurrió un error en FileHandler.", exception);
+	    }
 	}
 	
 	
 /**
- * 
- * @param nivel que se genera en el método LeerNivelAgua
- * @return opción introducida por el usuario
+ * @author Asier Iza
+ * @param nivel(int) que se genera en el método LeerNivelAgua
+ * @return opción(int) introducida por el usuario
  */
 	public static int mostrarMenu(int nivel) {
 		int opcion;
@@ -80,6 +113,7 @@ public class Principal {
 		System.out.println();
 		System.out.print("Introduce opci�n: ");
 		opcion = teclado.nextInt();
+		LOGGER.log(Level.FINE, "Se ha seleccionado la opción"+opcion);
 		return opcion;
 	}
 
