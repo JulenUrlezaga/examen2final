@@ -8,7 +8,7 @@ public class LogFormato extends Formatter{
 	
 	@Override
 	public String format(LogRecord record) {
-	return "se ha seleccionado la opción: "+record.getMessage();
+	return ""+record.getMessage();
 	}
 	@Override
 	 public String getHead(Handler h) {

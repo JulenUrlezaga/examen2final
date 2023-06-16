@@ -30,19 +30,17 @@ public class Principal {
 		Handler fileHandler  = null;
 		try{
 			
-            fileHandler  = new FileHandler("logs/opcionesMenu.log", true);
+            fileHandler  = new FileHandler("./logs/opcionesMenu.log", true);
             
             fileHandler.setFormatter(new LogFormato());
 
             LOGGER.addHandler(fileHandler);
-            
-            
-            fileHandler.setLevel(Level.FINE);
 
-            
+            fileHandler.setLevel(Level.FINE);
             LOGGER.setLevel(Level.FINE);
              
             LOGGER.config("Configuración hecha.");
+            LOGGER.log(Level.FINE, "FINE");
             
             
 		int nivel = leerNivelAgua();
@@ -87,6 +85,7 @@ public class Principal {
 				break;
 			}
 		} while (opcion != 5);
+		
 		}catch(IOException exception){
 	        LOGGER.log(Level.SEVERE, "Ocurrió un error en FileHandler.", exception);
 	    }
@@ -113,7 +112,7 @@ public class Principal {
 		System.out.println();
 		System.out.print("Introduce opci�n: ");
 		opcion = teclado.nextInt();
-		LOGGER.log(Level.FINE, "Se ha seleccionado la opción"+opcion);
+		LOGGER.log(Level.FINE, "Se ha seleccionado la opción: "+opcion);
 		return opcion;
 	}
 
