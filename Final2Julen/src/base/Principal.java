@@ -58,8 +58,14 @@ public class Principal {
 		} while (opcion != 5);
 
 	}
-
-	private static int mostrarMenu(int nivel) {
+	
+	
+/**
+ * 
+ * @param nivel que se genera en el método LeerNivelAgua
+ * @return opción introducida por el usuario
+ */
+	public static int mostrarMenu(int nivel) {
 		int opcion;
 		System.out.println();
 		System.out.println("Nivel del agua: " + nivel);
